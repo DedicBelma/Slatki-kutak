@@ -16,7 +16,7 @@ app.use(cors());
 
 mongoose
   .connect(
-    "mongodb+srv://belma:svadba1712@cluster0.kn4cg.mongodb.net/slatkiKutak?retryWrites=true&w=majority",
+    "mongodb+srv://name:pass@cluster0.kn4cg.mongodb.net/slatkiKutak?retryWrites=true&w=majority",
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -96,8 +96,8 @@ const sendMails = async(name) => {
       var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: 'belma.dedic2019@size.ba',
-          pass: 'Belma#1307'        
+          user: 'example@gmail.com',
+          pass: 'pass1235'        
         }
       });
     
