@@ -16,7 +16,7 @@ app.use(cors());
 
 mongoose
   .connect(
-    "mongodb+srv://name:pass@cluster0.kn4cg.mongodb.net/slatkiKutak?retryWrites=true&w=majority",
+    "mongodb+srv://belma:svadba1712@cluster0.kn4cg.mongodb.net/slatkiKutak?retryWrites=true&w=majority",
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -167,6 +167,32 @@ app.get("/Sweet/findByName/:name", async (req, res) => {
 app.get("/Sweet/findByCategory/:categoryId", async (req, res) => {
   const findSweet = await Sweet.find({ categoryId: req.params.categoryId });
   res.json(findSweet);
+});
+
+app.get("/Sweet/findByNameAndCategory/:name/:categoryId", async (req, res) => {
+  var thename = req.params.name;
+  let categoryId = req.params.categoryId;
+
+  if(thename != "default" && categoryId != "default") {
+    let findSweet = await Sweet.find({
+      name: { $regex: new RegExp(thename, "i") },
+      categoryId: req.params.categoryId
+    });
+
+    res.json(findSweet);
+  } else if(thename != "default" && categoryId == "default") {
+    let findSweet = await Sweet.find({
+        name: { $regex: new RegExp(thename, "i") },
+      });
+
+      res.json(findSweet);
+  } else if(thename == "default" && categoryId != "default") {
+    let findSweet = await Sweet.find({
+        categoryId: req.params.categoryId
+    });
+
+    res.json(findSweet);
+  }
 });
 
 app.post("/Sweet/addInBasket", async (req, res) => {

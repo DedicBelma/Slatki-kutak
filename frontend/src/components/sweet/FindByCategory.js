@@ -1,27 +1,13 @@
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { useEffect, useState } from "react";
 
-const FindByCategory = ({ passSetSweet }) => {
+const FindByCategory = ({ passSetCategory }) => {
   const [categoryId, setCategoryId] = useState("");
-  const [sweet, setSweet] = useState("");
-      
-  useEffect(() => {
-    fetchData();
-  }, [categoryId]);
-      
-  const fetchData = async () => {
-    if (categoryId === "") {
-      const data = await fetch("http://localhost:3000/Home");
-      const sweet2 = await data.json();
-      setSweet(sweet2);
-      passSetSweet(sweet2);
-    } else {
-      const data = await fetch("http://localhost:3000/Sweet/findByCategory/" + categoryId);
-      const sweet2 = await data.json();
-      setSweet(sweet2);
-      passSetSweet(sweet2);
-    }
-  };
+
+  const handleChange = async (event) => {
+    setCategoryId(event.target.value);
+    await passSetCategory(event.target.value);
+  }
 
   return (
     <FormControl sx={{ minWidth: 120 }} size="small">
@@ -31,9 +17,9 @@ const FindByCategory = ({ passSetSweet }) => {
         id="demo-select-small"
         value={categoryId}
         label="Kategorija"
-        onChange={(event) => setCategoryId(event.target.value)}
+        onChange={handleChange}
       >
-        <MenuItem value="">
+        <MenuItem value="default">
           <em>Sve</em>
         </MenuItem>
         <MenuItem value={'627a5d820138cd807dd32cbe'}>Kolač</MenuItem>

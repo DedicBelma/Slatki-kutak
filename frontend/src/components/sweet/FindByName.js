@@ -1,35 +1,21 @@
 import { InputAdornment, TextField } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SearchIcon from '@mui/icons-material/Search';
 
 const rx_live = /^[a-zA-Z ]*$/;
 
-const FindByName = ({ passSetSweet }) => {
+const FindByName = ({ passSetName }) => {
   const [name, setName] = useState("");
-  const [sweet, setSweet] = useState("");
 
-  useEffect(() => {
-    fetchData();
-  }, [name]);
-
-  const fetchData = async () => {
-    if (name === "") {
-      const data = await fetch("http://localhost:3000/Home");
-      const sweet2 = await data.json();
-      setSweet(sweet2);
-      passSetSweet(sweet2);
-    } else {
-      const data = await fetch("http://localhost:3000/Sweet/findByName/" + name);
-      const sweet2 = await data.json();
-      setSweet(sweet2);
-      passSetSweet(sweet2);
-    }
-  };
-
-  const handleChange = (event) => {
+  const handleChange = async (event) => {
     if (rx_live.test(event.target.value)) {
       setName(event.target.value);
-  }  
+      if(event.target.value.length > 0){
+        await passSetName(event.target.value);
+      }else {
+        passSetName("default");
+      }
+    }  
   };
 
   return (

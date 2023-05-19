@@ -146,11 +146,11 @@ export default function CustomizedDialogs({User, sort, size, inscriptions, textI
             Lični podaci
           </BootstrapDialogTitle>
           <DialogContent dividers>
-            <div style={{display: "flex"}}>
-              <InputLabel className="orderLabel" sx={{mb: 0.5, pr: 19.8, mr: 2}} style={{color: "revert"}}>
+            <div style={{display: "flex", justifyContent: "space-between"}}>
+              <InputLabel className="orderLabel" sx={{mb: 0.5}} style={{color: "revert", width: "48%"}}>
                 Unesite ime
               </InputLabel>
-              <InputLabel className="orderLabel" sx={{pr: 16, mb: 0.5}} style={{color: "revert"}}>
+              <InputLabel className="orderLabel" sx={{mb: 0.5}} style={{color: "revert", width: "48%"}}>
                   Unesite prezime
               </InputLabel></div>
                   <div style={{display: "flex"}}>
@@ -161,17 +161,17 @@ export default function CustomizedDialogs({User, sort, size, inscriptions, textI
               <InputLabel className="orderLabel" sx={{mt: 1.2, mb: 0.5, mr: 0.5}} style={{color: "revert"}}>
                   Unesite adresu
               </InputLabel>
-              <TextField fullWidth required id="outlined-required" label="Adresa" autoComplete="off" value={Adress}
+              <TextField style={{maxWidth: "100%"}} fullWidth required id="outlined-required" label="Adresa" autoComplete="off" value={Adress}
               onChange={(e) => setAdress(e.target.value)} sx={{width: 500}} inputProps={{ minLength: 5, maxLength: 40}} />
               <InputLabel className="orderLabel" sx={{mt: 1.2, mb: 0.5, mr: 0.5}} style={{color: "revert"}}>
                   Unesite grad
               </InputLabel>
-              <TextField fullWidth required id="outlined-required" label="Grad" autoComplete="off" value={City}
+              <TextField style={{maxWidth: "100%"}} fullWidth required id="outlined-required" label="Grad" autoComplete="off" value={City}
               onChange={(e) => setCity(e.target.value)}  sx={{width: 500}} inputProps={{ minLength: 4, maxLength: 25}} />
               <InputLabel className="orderLabel" sx={{mt: 1.2, mb: 0.5, mr: 0.5}} style={{color: "revert"}}>
                   Unesite broj telefona
               </InputLabel>
-              <TextField required id="outlined-required" label="Broj telefona" autoComplete="off" helperText="Format: 061111111"
+              <TextField style={{maxWidth: "100%"}} required id="outlined-required" label="Broj telefona" autoComplete="off" helperText="Format: 061111111"
               value={PhoneNumber} onChange={(e) => checkAndSetPrice(e.target.value)} sx={{width: 500}} inputProps={{ minLength: 9, maxLength: 10}} />
           </DialogContent>
         <DialogActions>

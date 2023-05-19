@@ -11,6 +11,7 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import FindByName from './FindByName';
 import FindByCategory from "./FindByCategory";
 import BasketDialogAddSweet from "./AddInBasketDialog";
+import DeleteFromHomeDialog from "./DeleteFromHome";
 
 const url = "http://localhost:3000";
 const noImageFound = "https://www.societaallestero.com/wp-content/themes/consultix/images/no-image-found-360x250.png";
@@ -22,11 +23,16 @@ const Home = () => {
   const [user, setUser] = useState();
   const [sweet, setSweet] = useState(null);
   const [open, setOpen] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
   const [urlImage, setUrlImage] = useState(false);
   const [AddInBasketDialog, setAddInBasketDialog] = useState(false);
   const [sweetAddInBasket, setSweetAddInBasket] = useState(false);
   const [sweetUrl, setSweetUrl] = useState(false);
   const [sweetName, setSweetName] = useState(false);
+  const [sweetId, setSweetId] = useState(false);
+  const [name, setName] = useState("default");
+  const [category, setCategory] = useState("default");
+  
   const navigate = useNavigate();
   logedUser = location.state.user;
 
@@ -37,6 +43,24 @@ const Home = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
+  useEffect(() => {
+    fetchedData();
+  }, [name, category]);
+
+  const fetchedData = async () => {
+    if (name === "default" && category === "default") {
+      const data = await fetch("http://localhost:3000/Home");
+      const sweet2 = await data.json();
+      setSweet(sweet2);
+    } else if (name !== "default" || category !== "default"){
+      const data = await fetch("http://localhost:3000/Sweet/findByNameAndCategory/" + name + "/" + category);
+      const sweet2 = await data.json();
+      if(sweet2){
+        setSweet(sweet2);
+      }
+    }
+  };
 
   const fetchData = async () => {
     const fetchedData = await fetch(url + "/Home");
@@ -60,7 +84,6 @@ const Home = () => {
     setAddInBasketDialog(true);
     setSweetName(sweetName);
     {imageUrl === "" ? setSweetUrl(noImageFound) : setSweetUrl(imageUrl)};
-    console.log(imageUrl)
     const url = 'http://localhost:3000/Sweet/addInBasket';
     fetch(url, {
       method: 'POST',
@@ -86,16 +109,26 @@ const Home = () => {
     setUrlImage(false);
   };
     
+  const openDeleteFromHome = (id) => {
+    setOpenDelete(true);
+    setSweetId(id);
+  }
+    
+  const closingDeleteFromHomeDialog = () => {
+    setOpenDelete(false);
+    setSweetId(false);
+  }
+
   return (
     <div className="home">
       < Navbar />
       <div className="sweet">
         <div className="title">
           <div className="findByName">
-            < FindByName passSetSweet={setSweet} />
+            < FindByName passSetName={setName} />
           </div>
           <div className="findByCategory">
-            < FindByCategory passSetSweet={setSweet} />
+            < FindByCategory passSetCategory={setCategory} />
           </div>
         </div>
         <div className="offer">
@@ -135,7 +168,7 @@ const Home = () => {
                   {user && user.role === 1 && <>
                     <hr />
                     <div className="deleteAndUpdate">
-                      <p className="delete" onClick={() => deleteSweet(sweet._id)}>
+                      <p className="delete" onClick={() => openDeleteFromHome(sweet._id)}>
                         <DeleteIcon fontSize="large" />
                       </p>
                       <p className="update" onClick={() => updateSweet(sweet._id)}>
@@ -169,6 +202,12 @@ const Home = () => {
            name={sweetName} 
            isOpen={AddInBasketDialog} 
            closingDialog={closeAddInBasketDialog}/>)}
+          {openDelete === true && (
+          <DeleteFromHomeDialog
+            id={sweetId} 
+            isOpen={openDelete} 
+            closingDialog={closingDeleteFromHomeDialog}
+            deleteSweet={deleteSweet}/>)}
         </div>
       </div>
     </div> 

@@ -243,6 +243,7 @@
 
 .orderLabel {
   background-color: rgba(242, 207, 227, 0.561);
+  max-width: 100%;
 }
 
 .makeOrder:hover{
@@ -346,8 +347,21 @@ a:hover, a:focus {
 }
 
 .specialOrder {
+  position: relative;
+  background-color: #a7a5a59a;
+}
+
+.specialOrder::before {
   background-image: url("https://i.pinimg.com/originals/f1/c3/ed/f1c3ed5cc23753056349b4b98f45cf91.jpg");
   background-size: cover;
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.5;
+}
+
+.specialAll {
+  isolation: isolate;
 }
 
 .model .modelImage {

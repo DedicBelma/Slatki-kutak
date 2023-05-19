@@ -5,6 +5,7 @@ import Navbar from '../navbar/Navbar';
 import { Box } from "@mui/system";
 import MakeOrder from './MakeOrder';
 import { useLocation } from "react-router-dom";
+import DeleteFromBasketDialogComponent from "./DeleteFromBasketDialog";
 
 const url = "http://localhost:3000";
 const noImageFound = "https://www.societaallestero.com/wp-content/themes/consultix/images/no-image-found-360x250.png";
@@ -14,6 +15,8 @@ const Basket = ({User}) => {
   const location = useLocation();
   const [basket, setBasket] = useState();
   const [user, setUser] = useState(location.state.user);
+  const [open, setOpen] = useState(false);
+  const [sweetId, setSweetId] = useState(false);
 
   logedUser = location.state.user;
 
@@ -56,6 +59,16 @@ const Basket = ({User}) => {
     const fetched = await fetch(url + "/Sweet/basket/sweet/" + id);
     const realData = await fetched.json();
     return realData[0];
+  }
+
+  const openDeleteFromBasketDialog = (id) => {
+    setOpen(true);
+    setSweetId(id);
+  }
+    
+  const closingDialog = () => {
+    setOpen(false);
+    setSweetId(false);
   }
 
   const deleteSweet = (id) => {
@@ -106,7 +119,7 @@ const Basket = ({User}) => {
               </div>
               <hr />
               <div className="deleteAndUpdate">
-                <p className="delete" onClick={() => deleteSweet(sweet._id)}>
+                <p className="delete" onClick={() => openDeleteFromBasketDialog(sweet._id)}>
                   <DeleteIcon fontSize="large" />
                 </p>
               </div>
@@ -122,6 +135,12 @@ const Basket = ({User}) => {
                 <MakeOrder User={user} totalParse={totalParse} />
               </Box></></>
       } 
+      {open === true && (
+      <DeleteFromBasketDialogComponent 
+      id={sweetId} 
+      isOpen={open} 
+      closingDialog={closingDialog}
+      deleteSweet={deleteSweet}/>)}
     </div>
   );
 }

@@ -66,7 +66,7 @@ const SpecialOrder = ({User}) => {
             } else if(shape === "Kvadrat") {
                 return url + "https://www.keralagifts.in/media/images/product/202006151592205069.jpg)";
             } else if(shape === "Srce") {
-                return url + "https://www.sacake.lk/wp-content/uploads/2021/12/rosy-heart-chocolate-cake-sacake_1-1200x1200.jpg)";
+                return url + "https://www.torta.rs/storage/products/torta-srce--samo-ti.jpg)";
             } else if(shape === "Drugo") {
                 return url + "https://i.pinimg.com/originals/60/7b/94/607b945f696b6ad40b3d88db48af0da2.jpg)";
             }
@@ -140,7 +140,8 @@ useEffect(() => {
         <div>
             < Navbar />
             <div className="specialOrder" style={{paddingTop: "1%"}}>
-                <Avatar className="avatar" sx={{ bgcolor: blue[500], margin: "auto" }}>
+                <div className="specialAll">
+                <Avatar className="avatar" sx={{ bgcolor: blue[500], margin: "auto"}}>
                     < CakeIcon />
                 </Avatar>
                 <Typography variant="h5" gutterBottom component="div" mb={ 3 } textAlign={"center"} sx={{ cursor: "default" }}>
@@ -297,7 +298,7 @@ useEffect(() => {
                 </div> </>} 
             </div>
             < MakeSpecialOrder User={user} sort={sort} size={size} inscriptions={inscriptions} textInscriptions={textInscriptions} floorsNumber={floorsNumber} shape={shape} otherShape={otherShape} date={date} notes={notes} fullPrice={fullPrice} />
-        </div>
+        </div></div>
     </div>
     );
 }
