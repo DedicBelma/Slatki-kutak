@@ -106,7 +106,7 @@ const sendMails = async(name) => {
           console.log(err);
         } else {
           let mailOptions = {
-            from: 'belma.dedic2019@size.ba',
+            from: 'example@gmail.com',
             to: users[i].email,
             subject: 'Slatki kutak - nova poslastica',
             html: html

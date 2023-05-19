@@ -34,12 +34,15 @@ const SpecialOrders = ({User}) => {
     {user.role === 2 && (
       <div className="specialOrders">
         <div className="titlesFind">
-          <div className="ordersTitle">
+        {specialOrder != "" && specialOrder.length !== 0 && <div className="ordersTitle" style={{paddingLeft: "10%"}}>
             <p className="specialTitle">Moje posebne narudžbe</p>
-          </div>
-          <div className="findByStatus">
+          </div>}
+          {specialOrder == "" && specialOrder.length === 0 && <div className="ordersTitle">
+            <p className="specialTitle">Moje posebne narudžbe</p>
+          </div>}
+          {specialOrder != "" && specialOrder.length !== 0 && <div className="findByStatus">
             <FindByStatusSpecial passSetSpecialOrder={setSpecialOrder} user={user} />
-          </div>
+          </div>}
         </div>
         <div
           class="container bootstrap snippets bootdeys"

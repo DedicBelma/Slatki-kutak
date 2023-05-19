@@ -10,6 +10,7 @@ import ImageDialog from "./ImageDialog";
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import FindByName from './FindByName';
 import FindByCategory from "./FindByCategory";
+import BasketDialogAddSweet from "./AddInBasketDialog";
 
 const url = "http://localhost:3000";
 const noImageFound = "https://www.societaallestero.com/wp-content/themes/consultix/images/no-image-found-360x250.png";
@@ -22,7 +23,10 @@ const Home = () => {
   const [sweet, setSweet] = useState(null);
   const [open, setOpen] = useState(false);
   const [urlImage, setUrlImage] = useState(false);
-  
+  const [AddInBasketDialog, setAddInBasketDialog] = useState(false);
+  const [sweetAddInBasket, setSweetAddInBasket] = useState(false);
+  const [sweetUrl, setSweetUrl] = useState(false);
+  const [sweetName, setSweetName] = useState(false);
   const navigate = useNavigate();
   logedUser = location.state.user;
 
@@ -52,7 +56,11 @@ const Home = () => {
     navigate(`/Sweet/edit/${id}`, {state: {user:  logedUser}});
   };
   
-  const addInBasket = (sweetId, userId) => {
+  const addInBasket = (sweetId, sweetName, imageUrl, userId) => {
+    setAddInBasketDialog(true);
+    setSweetName(sweetName);
+    {imageUrl === "" ? setSweetUrl(noImageFound) : setSweetUrl(imageUrl)};
+    console.log(imageUrl)
     const url = 'http://localhost:3000/Sweet/addInBasket';
     fetch(url, {
       method: 'POST',
@@ -63,6 +71,10 @@ const Home = () => {
       })
     })
   };
+
+  const closeAddInBasketDialog = () => {
+    setAddInBasketDialog(false);
+  }
 
   const openImageDialog = (url) => {
     setOpen(true);
@@ -136,7 +148,7 @@ const Home = () => {
                     <hr />
                     <div className="buy">
                       <p className="addInBasket">
-                        <ShoppingCartOutlinedIcon fontSize="large" onClick={() => addInBasket(sweet._id, user._id)}/>
+                        {<ShoppingCartOutlinedIcon fontSize="large" onClick={() => addInBasket(sweet._id, sweet.name, sweet.imageUrl, user._id)}/>}
                       </p>
                     </div></>
                   }
@@ -151,6 +163,12 @@ const Home = () => {
               closingDialog={closingDialog}
             />
           )}
+          {AddInBasketDialog === true && (
+          <BasketDialogAddSweet
+           url={sweetUrl} 
+           name={sweetName} 
+           isOpen={AddInBasketDialog} 
+           closingDialog={closeAddInBasketDialog}/>)}
         </div>
       </div>
     </div> 

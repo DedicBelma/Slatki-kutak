@@ -35,14 +35,16 @@ const Orders = ({ User }) => {
       {user.role === 2 && (
         <div className="orders">
           <div className="titlesFind">
-            <div className="ordersTitle">
+          { order != "" && order.length !== 0 && <div className="ordersTitle" style={{paddingLeft: "10%"}}>
               <p>Moje narudžbe</p>
-            </div>
-            <div className="findByStatus">
-              <FindByStatus passSetOrder={setOrder} user={user} />
-            </div>
+            </div>}
+            { order == "" && order.length === 0 && <div className="ordersTitle">
+              <p>Moje narudžbe</p>
+            </div>} 
+            { order != "" && order.length !== 0 && <div className="findByStatus">
+              <FindByStatus passSetOrder={setOrder} user={user}/>
+            </div>}
           </div>
-
           <div
             class="container bootstrap snippets bootdeys"
             style={{ cursor: "default" }}
