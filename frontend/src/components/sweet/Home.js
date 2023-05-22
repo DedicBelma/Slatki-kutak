@@ -45,8 +45,15 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      fetchedData();
+    }, 1000)
+    return () => clearTimeout(delayDebounceFn);
+  }, [name]);
+
+  useEffect(() => {
     fetchedData();
-  }, [name, category]);
+  }, [category]);
 
   const fetchedData = async () => {
     if (name === "default" && category === "default") {
