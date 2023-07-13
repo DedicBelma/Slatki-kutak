@@ -56,7 +56,6 @@ export default function SignIn({ logging, guest }) {
     }),
   });
   let Fdata = await dataFetch.json(); 
-  console.log(Fdata); 
   navigate('/Home', {state: {user:  Fdata}});
 
   if (Fdata === "User not found") {
