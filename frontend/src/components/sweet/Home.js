@@ -1,5 +1,4 @@
 import { useState } from "react";
-import {useLocation} from "react-router-dom";
 import Navbar from '../navbar/Navbar';
 import { Typography } from "@mui/material";
 import { useEffect} from "react";
@@ -19,14 +18,12 @@ const noImageFound = "https://www.societaallestero.com/wp-content/themes/consult
 let logedUser = null;
 
 const Home = () => {
-  const location = useLocation();
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(localStorage.getItem('user'));
   const [sweet, setSweet] = useState(null);
   const [open, setOpen] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const [urlImage, setUrlImage] = useState(false);
   const [AddInBasketDialog, setAddInBasketDialog] = useState(false);
-  const [sweetAddInBasket, setSweetAddInBasket] = useState(false);
   const [sweetUrl, setSweetUrl] = useState(false);
   const [sweetName, setSweetName] = useState(false);
   const [sweetId, setSweetId] = useState(false);
@@ -34,15 +31,17 @@ const Home = () => {
   const [category, setCategory] = useState("default");
   
   const navigate = useNavigate();
-  logedUser = location.state.user;
-
-  useEffect(() => {
-    setUser(logedUser);
-  }, [logedUser])
+  logedUser = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
     fetchData();
   }, []);
+
+useEffect(() => {
+  if(logedUser == null){
+    navigate('/');
+  }
+},[logedUser]);
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {

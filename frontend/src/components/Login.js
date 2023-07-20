@@ -31,13 +31,20 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignIn({ logging, guest }) {
+export default function SignIn() {
 
   const [userLoging, setUserLoging] = useState([]);
   const [userLogingError, setUserLogingError] = useState(false);
   const [passwordShown, setPasswordShown] = useState(false);
+  let logedUser = JSON.parse(localStorage.getItem('user'));
 
   const navigate = useNavigate();
+
+  React.useEffect(() => {
+    if(logedUser != null){
+      navigate('/home')
+    }
+  }, [])
 
   const togglePassword = () => {
     setPasswordShown(!passwordShown);
@@ -56,22 +63,20 @@ export default function SignIn({ logging, guest }) {
     }),
   });
   let Fdata = await dataFetch.json(); 
-  navigate('/Home', {state: {user:  Fdata}});
+  localStorage.setItem('user', JSON.stringify(Fdata))
+  navigate('/Home');
 
   if (Fdata === "User not found") {
     Fdata = false;
     setUserLogingError(true);
     navigate('/');
   }
-  
-  setUserLoging(Fdata);
-  logging(Fdata);
   };
 
   const setGuest = async () => {
     const data = await fetch(url + "/GetGuest");
     const guestLogin = await data.json();
-    guest(guestLogin[0]);
+    localStorage.setItem('user', JSON.stringify(guestLogin))
     navigate('/Home', {state: {user:  guestLogin[0]}});
   };
 

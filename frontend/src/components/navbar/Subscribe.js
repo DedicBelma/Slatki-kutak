@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -9,30 +9,30 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Unsubscribe from './Unsubscribe';
 import { useLocation } from 'react-router-dom';
 
-let logedUser = null;
 
-export default function FormDialog({User}) {
+export default function FormDialog() {
   const location = useLocation();
-  const [user, setUser] = React.useState(location.state.user);
-  const [open, setOpen] = React.useState(false);
-  const [email, setEmail] = React.useState('');
-  const [userSubscribed, setUserSubscribed] = React.useState(false);
-  const [refresh, setRefresh] = React.useState(false);
-  const [mail, setMail] = React.useState("");
-  const [subs, setSubs] = React.useState(location.state.user.email);
-  const [unsubs, setUnsubs] = React.useState("");
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
+  const [open, setOpen] = useState(false);
+  const [email, setEmail] = useState('');
+  const [userSubscribed, setUserSubscribed] = useState(false);
+  const [refresh, setRefresh] = useState(false);
+  const [mail, setMail] = useState("");
+  const [subs, setSubs] = useState(JSON.parse(localStorage.getItem('user')).email);
+  const [unsubs, setUnsubs] = useState("");
+  let logedUser = JSON.parse(localStorage.getItem('user'));
 
-  logedUser = location.state.user;
 
-  React.useEffect(() => {
-    setUser(logedUser);
-    setMail(logedUser.email);
-    if(logedUser.email !== "") {
-      setSubs(logedUser.email)
-    } else {
-      setSubs(unsubs);
-    }
-  }, [logedUser])
+  // useEffect(() => {
+  //   console.log(logedUser)
+  //   setUser(user);
+  //   setMail(user.email);
+  //   if(user.email !== "") {
+  //     setSubs(user.email)
+  //   } else {
+  //     setSubs(unsubs);
+  //   }
+  // }, [logedUser])
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -71,7 +71,7 @@ export default function FormDialog({User}) {
     }
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     setMail(email);
     setEmail("");
   }, [refresh])
