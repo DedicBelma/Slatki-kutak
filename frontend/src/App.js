@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Login from './components/Login';
+import AdminLogin from './components/AdminLogin';
 import Home from './components/sweet/Home'
 import SignUp from './components/SignUp';
 import AddSweet from './components/sweet/AddSweet';
@@ -18,7 +19,7 @@ function App() {
 
   const LogedUser = (user) => {
     setUser(user);
-  localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('user', JSON.stringify(user));
   };
 
   const setGuest = (user) => {
@@ -30,6 +31,7 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/" element={<Login /> } />
+          <Route path="/AdminLogin" element={<AdminLogin /> } />
           <Route path="/SignUp" element={<SignUp  logging={LogedUser}/>} />
           <Route path="/Home" element={<Home/> } />
           <Route path="/Sweet/new" element={<AddSweet/>} />

@@ -28,7 +28,6 @@ function Copyright(props) {
     </Typography>
   );
 }
-localStorage.clear();
 
 const theme = createTheme();
 
@@ -64,25 +63,25 @@ export default function SignIn() {
     }),
   });
   let Fdata = await dataFetch.json(); 
-  localStorage.setItem('user', JSON.stringify(Fdata))
-  navigate('/Home');
+  localStorage.setItem('user', JSON.stringify(Fdata));
+
+  if(Fdata.role === 1) {
+    navigate('/Home');
+  } else {
+    setUserLogingError(true);
+    navigate('/AdminLogin');
+  } 
 
   if (Fdata === "User not found") {
     Fdata = false;
     setUserLogingError(true);
-    navigate('/');
+    localStorage.clear('user');
+    navigate('/AdminLogin');
   }
   };
 
-  const setGuest = async () => {
-    const data = await fetch(url + "/GetGuest");
-    const guestLogin = await data.json();
-    localStorage.setItem('user', JSON.stringify(guestLogin))
-    navigate('/Home', {state: {user:  guestLogin[0]}});
-  };
-
   return (
-    <div className="login">
+    <div className="loginAdmin">
       <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
@@ -94,11 +93,11 @@ export default function SignIn() {
               alignItems: 'center',
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <Avatar sx={{ m: 1, bgcolor: 'warning.main' }}>
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Prijavi se
+              Admin prijava
             </Typography>
             <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField
@@ -138,21 +137,9 @@ export default function SignIn() {
               >
                 Prijavi se
               </Button>
-              <Grid container>
-                <Grid item xs>
-                  <Link onClick={setGuest} variant="body2" style={{ cursor: 'pointer' }}>
-                    Prijavite se kao gost
-                  </Link>
-                </Grid>
-                <Grid item>
-                  <Link href="/SignUp" variant="body2" style={{ cursor: 'pointer' }}>
-                    {"Nemate račun? Registrujte se"}
-                  </Link>
-                </Grid>
-              </Grid>
             </Box>
           </Box>
-          <Copyright sx={{ mt: 8, mb: 4 }} />
+          <Copyright sx={{ mt: 4, mb: 4 }} />
         </Container>
       </ThemeProvider>
     </div>

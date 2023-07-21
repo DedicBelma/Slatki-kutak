@@ -90,7 +90,7 @@ export default function FadeMenu() {
         {user.role === 2 && <MenuItem onClick={handleClose}><div onClick={getOrders} className='link'>Narudžbe</div></MenuItem>}
         {user.role === 2 && <MenuItem onClick={handleClose}><div onClick={getSpecialOrder} className='link'>Posebne želje</div></MenuItem>}
         {user.role === 2 && <MenuItem sx={{mb: -2}} onClick={handleClose}><div onClick={getSpecialOrders} className='link'>Posebne narudžbe</div></MenuItem>}
-        {(user.role === 1) &&<> <hr/> <Link onClick={handleClearSession} to="/" style={{textDecoration: "none"}}>< LogoutIcon style={{fill: "black", marginLeft: "70", marginTop: "-10%" }}/></Link></>}
+        {(user.role === 1) &&<> <hr/> <Link onClick={handleClearSession} to="/AdminLogin" style={{textDecoration: "none"}}>< LogoutIcon style={{fill: "black", marginLeft: "70", marginTop: "-10%" }}/></Link></>}
         {(user.role === 2) &&<> <hr/> <Link onClick={handleClearSession} to="/" style={{textDecoration: "none"}}>< LogoutIcon style={{fill: "black", marginLeft: "75", marginTop: "-10%" }}/></Link></>}
     </>} 
       </Menu>
