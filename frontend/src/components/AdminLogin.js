@@ -42,7 +42,7 @@ export default function SignIn() {
 
   React.useEffect(() => {
     if(logedUser != null){
-      navigate('/home')
+      navigate('/Home')
     }
   }, [])
 
@@ -75,7 +75,6 @@ export default function SignIn() {
   if (Fdata === "User not found") {
     Fdata = false;
     setUserLogingError(true);
-    localStorage.clear('user');
     navigate('/AdminLogin');
   }
   };

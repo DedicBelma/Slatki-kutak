@@ -11,7 +11,7 @@ export default function Navbar() {
     const navigate = useNavigate();
 
     const getHome = () => {
-        navigate('/Home', {state: {user:  user}});
+        navigate('/Home');
     }
 
     return ( 
@@ -24,7 +24,7 @@ export default function Navbar() {
             </div>
             <div className='links'>
                 { user && <>
-                    {user.role === 2 && < Subscribe User={user}/>}
+                    {user.role === 2 && < Subscribe/>}
                     {user.role === 3 && <Link to="/SignUp" style={{textDecoration: "none", marginTop: "-10%"}}><Button variant="contained" color="success">
                         Registracija</Button></Link>}
                     {(user.role === 1 || user.role === 2 ) && < Hamburger />} 

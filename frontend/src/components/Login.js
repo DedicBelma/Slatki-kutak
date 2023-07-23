@@ -28,7 +28,6 @@ function Copyright(props) {
     </Typography>
   );
 }
-localStorage.clear();
 
 const theme = createTheme();
 
@@ -43,7 +42,7 @@ export default function SignIn() {
 
   React.useEffect(() => {
     if(logedUser != null){
-      navigate('/home')
+      navigate('/Home')
     }
   }, [])
 

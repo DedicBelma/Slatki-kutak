@@ -8,20 +8,13 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { styled } from '@mui/material/styles';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-let logedUser = null;
-
-export default function AlertDialog({User}){
+export default function AlertDialog({handleUnsubscribe}){
   const location = useLocation();
-  const [user, setUser] = React.useState(location.state.user);
+  const [user, setUser] = React.useState(JSON.parse(localStorage.getItem('user')));
   const [open, setOpen] = React.useState(false);
   const [email, setEmail] = React.useState("");
 
   const navigate = useNavigate();
-  logedUser = location.state.user;
-
-  React.useEffect(() => {
-    setUser(logedUser);
-  }, [logedUser])
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -42,7 +35,8 @@ export default function AlertDialog({User}){
     })
     .then(() => {
       setOpen(false);
-      navigate('/Home', {state: {user:  logedUser}});
+      handleUnsubscribe();
+      navigate('/Home');
     })
   }
 

@@ -20,19 +20,11 @@ export default function FormDialog() {
   const [mail, setMail] = useState("");
   const [subs, setSubs] = useState(JSON.parse(localStorage.getItem('user')).email);
   const [unsubs, setUnsubs] = useState("");
-  let logedUser = JSON.parse(localStorage.getItem('user'));
 
-
-  // useEffect(() => {
-  //   console.log(logedUser)
-  //   setUser(user);
-  //   setMail(user.email);
-  //   if(user.email !== "") {
-  //     setSubs(user.email)
-  //   } else {
-  //     setSubs(unsubs);
-  //   }
-  // }, [logedUser])
+  const handleUnsubscribe = () => {
+    setMail('');
+    setSubs('');
+  }
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -89,7 +81,7 @@ export default function FormDialog() {
       {subs === "" && mail === "" && <Button variant="contained" color="success" className="button" onClick={handleClickOpen}>
         Pretplati se
       </Button> }
-      {(subs !== "" || mail !== "") && < Unsubscribe user={user} />}
+      {(subs !== "" || mail !== "") && < Unsubscribe handleUnsubscribe={handleUnsubscribe} />}
       <Dialog open={open} onClose={handleClose}>
         <form className='subscribeForNews' onSubmit={subscribe}>
           <DialogTitle>Pretplati se</DialogTitle>
